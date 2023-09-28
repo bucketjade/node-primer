@@ -33,9 +33,8 @@ const schedule = {
 
 const App = () => (
   <div>
-    <h1>{schedule.title}</h1>
-    {/* <Banner title={schedule.title} />
-    <CourseList courses={schedule.courses} /> */}
+    <Banner title={schedule.title} />
+    <CourseList courses={schedule.courses} />
   </div>
 );
 

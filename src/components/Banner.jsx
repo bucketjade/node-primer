@@ -1,5 +1,5 @@
 const Banner = ({title}) => (
-    <p>Hello World, I am Banner! I got: { title }</p>
+    <h1>{ title }</h1>
 );
 
 export default Banner;
