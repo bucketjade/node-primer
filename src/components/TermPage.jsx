@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CourseList from "./CourseList";
 
 const terms = {
   Fall: 'Fall',
@@ -32,15 +33,15 @@ const Term = ({selection}) => (
         { terms[selection] }
     </div>
 )
-// note: this "Term" state variable has to be created in MenuPage not MenuSelector,
+// note: this "Term" state variable has to be created in TermPage not TermSelector,
 // so that it can be shared between components.
 
-const TermPage = () => {
+const TermPage = ({schedule}) => {
     const [selection, setSelection] = useState(() => Object.keys(terms)[0]); //start on Fall
     return (
         <div>
             <TermSelector selection={selection} setSelection={setSelection} />
-            <Term selection={selection} />
+            <CourseList courses={schedule.courses} term={selection} />
         </div>
     );
 }
