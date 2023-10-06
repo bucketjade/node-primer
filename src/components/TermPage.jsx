@@ -1,5 +1,8 @@
 import { useState } from "react";
 import CourseList from "./CourseList";
+import Modal from "./Modal";
+import Cart from "./Cart";
+import "./Modal.css"
 
 const terms = {
   Fall: 'Fall',
@@ -38,30 +41,34 @@ const TermSelector = ({termSelection, setTerm}) => (
 
 const TermPage = ({schedule}) => {
     const [termSelection, setTerm] = useState(() => Object.keys(terms)[0]); //start on Fall
-
     const [selectedCards, setClasses] = useState([]);
+    const [open, setOpen] = useState(false);
 
-    // const toggleSelectedCards = (item) => setClasses(
-    //     selectedCards.includes(item)
-    //     ? selectedCards.filter(x => x !== item)
-    //     : [...selectedCards, item]
-    // );
+    const openModal = () => {
+        console.log("Opening modal");
+        setOpen(true);
+    };
+    const closeModal = () => {
+        console.log("Closing modal");
+        setOpen(false);
+    };
 
-    const toggleSelectedCards = (item) => {
-        console.log(`before: ${selectedCards}. clicked ${item}`);
-        console.log(`check: ${selectedCards.includes(item)}.`);
-        setClasses(
-            selectedCards.includes(item)
-            ? selectedCards.filter(x => x !== item)
-            : [...selectedCards, item]
-        );
-        console.log(`after: ${selectedCards}`);
-    }
+    const toggleSelectedCards = (item) => setClasses(
+        selectedCards.includes(item)
+        ? selectedCards.filter(x => x !== item)
+        : [...selectedCards, item]
+    );
 
 
     return (
         <div>
-            <TermSelector termSelection={termSelection} setTerm={setTerm} />
+            <div className="d-flex">
+                <TermSelector termSelection={termSelection} setTerm={setTerm} />
+                <button className="ms-auto btn btn-outline-dark" onClick={openModal}><i className="bi bi-cart4"></i>Course Plan</button>
+            </div>
+            <Modal open={open} close={closeModal}>
+                <Cart selectedCards={selectedCards} courses={schedule.courses}/>
+            </Modal>
             <CourseList courses={schedule.courses} term={termSelection} selectedCards={selectedCards} toggleSelectedCards={toggleSelectedCards}/>
         </div>
     );
