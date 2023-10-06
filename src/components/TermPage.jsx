@@ -8,10 +8,10 @@ const terms = {
 };
 
 // each button
-const TermButton = ({term, selection, setSelection}) => (
+const TermButton = ({term, termSelection, setTerm}) => (
     <div>
-        <input type="radio" id={term} className="btn-check" checked={term === selection} autoComplete="off"
-          onChange={() =>setSelection(term)} />
+        <input type="radio" id={term} className="btn-check" checked={term === termSelection} autoComplete="off"
+          onChange={() =>setTerm(term)} />
         <label className="btn btn-success mb-1 p-2" htmlFor={term}>
         { term }
         </label>
@@ -19,29 +19,50 @@ const TermButton = ({term, selection, setSelection}) => (
 );
 
 // this is the row of 3 buttons
-const TermSelector = ({selection, setSelection}) => (
+const TermSelector = ({termSelection, setTerm}) => (
     <div className="btn-group">
         {
-            Object.keys(terms).map(term => <TermButton key={term} term={term} selection={selection} setSelection={setSelection} />)
+            Object.keys(terms).map(term => <TermButton key={term} term={term} termSelection={termSelection} setTerm={setTerm} />)
         }
     </div>
 );
 
 
-const Term = ({selection}) => (
-    <div className="card" >
-        { terms[selection] }
-    </div>
-)
+// const Term = ({termSelection}) => (
+//     <div className="card" >
+//         { terms[termSelection] }
+//     </div>
+// )
 // note: this "Term" state variable has to be created in TermPage not TermSelector,
 // so that it can be shared between components.
 
 const TermPage = ({schedule}) => {
-    const [selection, setSelection] = useState(() => Object.keys(terms)[0]); //start on Fall
+    const [termSelection, setTerm] = useState(() => Object.keys(terms)[0]); //start on Fall
+
+    const [selectedCards, setClasses] = useState([]);
+
+    // const toggleSelectedCards = (item) => setClasses(
+    //     selectedCards.includes(item)
+    //     ? selectedCards.filter(x => x !== item)
+    //     : [...selectedCards, item]
+    // );
+
+    const toggleSelectedCards = (item) => {
+        console.log(`before: ${selectedCards}. clicked ${item}`);
+        console.log(`check: ${selectedCards.includes(item)}.`);
+        setClasses(
+            selectedCards.includes(item)
+            ? selectedCards.filter(x => x !== item)
+            : [...selectedCards, item]
+        );
+        console.log(`after: ${selectedCards}`);
+    }
+
+
     return (
         <div>
-            <TermSelector selection={selection} setSelection={setSelection} />
-            <CourseList courses={schedule.courses} term={selection} />
+            <TermSelector termSelection={termSelection} setTerm={setTerm} />
+            <CourseList courses={schedule.courses} term={termSelection} selectedCards={selectedCards} toggleSelectedCards={toggleSelectedCards}/>
         </div>
     );
 }

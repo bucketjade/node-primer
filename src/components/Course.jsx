@@ -1,10 +1,14 @@
-const Course = ({course}) => (
-    <div className="card m-1 p-2">
-        <div className="card-body">
-            <h5 className="card-title">{course.term} CS {course.number}</h5>
-            <p className="class-text">{course.title}</p>
+import './Course.css';
+
+const Course = ({id, course, selectedCards, toggleSelectedCards}) => (
+    <div className="course card m-1 p-2" onClick={() => toggleSelectedCards(id)}>
+        <div className={selectedCards.includes(id) ? 'selected-card' : ''}>
+            <div className="card-body">
+                <h5 className="card-title">{course.term} CS {course.number}</h5>
+                <p className="card-text">{course.title}</p>
+            </div>
+            <p className="card-footer bg-transparent">{course.meets}</p>
         </div>
-        <p className="card-footer bg-transparent">{course.meets}</p>
     </div>
 );
 
