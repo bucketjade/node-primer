@@ -1,7 +1,6 @@
-const CourseForm = () => {
-    console.log("Rendering CourseForm");
+const CourseForm = ({id}) => {
     return (
-        <p>Hello, World!</p>
+        <p>Hello, World! {id}</p>
     );
 };
 
