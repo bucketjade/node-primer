@@ -1,16 +1,16 @@
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
-import CourseForm from "./CourseForm";
+import CourseEditor from "../pages/CourseEditor";
 import TermPage from "./TermPage";
 
-const CourseFormForUrl = () => {
+const CourseEditorForUrl = () => {
     const { id } = useParams();
-    return <CourseForm id={id} />;
+    return <CourseEditor id={id} />;
 }
 const Dispatcher = ({schedule}) => (
     <BrowserRouter>
     <Routes>
         <Route path="/" element={<TermPage schedule={schedule}/>}/>
-        <Route path="/:id/edit" element={<CourseFormForUrl />} />
+        <Route path="/:id/edit" element={<CourseEditorForUrl />} />
     </Routes>
     </BrowserRouter>
 );
