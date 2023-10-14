@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
-import Main from "./Main";
 import CourseForm from "./CourseForm";
+import TermPage from "./TermPage";
 
 const CourseFormForUrl = () => {
     const { id } = useParams();
     return <CourseForm id={id} />;
 }
-const Dispatcher = () => (
+const Dispatcher = ({schedule}) => (
     <BrowserRouter>
     <Routes>
-        <Route path="/" element={<Main />}/>
+        <Route path="/" element={<TermPage schedule={schedule}/>}/>
         <Route path="/:id/edit" element={<CourseFormForUrl />} />
     </Routes>
     </BrowserRouter>

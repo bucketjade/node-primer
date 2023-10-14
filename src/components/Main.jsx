@@ -1,6 +1,6 @@
 import { useJsonQuery } from '../utilities/fetch';
 import Banner from './Banner';
-import TermPage from './TermPage';
+import Dispatcher from './Dispatcher';
 
 const Main = () => {
     const [schedule, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
@@ -11,7 +11,7 @@ const Main = () => {
   
     return <div>
         <Banner title={schedule.title} />
-        <TermPage schedule={schedule}/>
+        <Dispatcher schedule={schedule} />
       </div>;
 }
 
