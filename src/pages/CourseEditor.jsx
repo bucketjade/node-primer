@@ -1,14 +1,27 @@
 import { useFormData } from "../utilities/useFormData";
 import { useNavigate } from "react-router-dom";
+import { before } from "../utilities/timeconflict";
 
 const validateUserData = (key, val) => {
   switch (key) {
     case 'courseTitle':
       return /(^\w\w)/.test(val) ? '' : 'must be least two characters';
     case 'courseMeets':
-        return /^\d\d:\d\d-\d\d:\d\d$/.test(val) ? '' : 'must match the format 00:00-00:00'
-    // case 'email':
-    //   return /^\w+@\w+[.]\w+/.test(val) ? '' : 'must contain name@domain.top-level-domain';
+        // const meetsRegex = /^$|^(?:(M|Tu|W|Th|F)(?:(?!\1)(M|Tu|W|Th|F)){0,4}) (?:[0-1]?\d|2[0-3]):[0-5]\d-(?:[0-1]?\d|2[0-3]):[0-5]\d$/;
+        const meetsRegex = /^$|^(?:M|Tu|W|Th|F(?!(?:M|Tu|W|Th|F))+){0,4} ((?:[0-1]?\d|2[0-3]):[0-5]\d)-((?:[0-1]?\d|2[0-3]):[0-5]\d)$/;
+        // const meetsRegex = /^$|^(?:(?:M|Tu|W|Th|F)(?:(?!\1)(?:M|Tu|W|Th|F)){0,4}) (([0-1]?\d|2[0-3]):([0-5]\d))-(([0-1]?\d|2[0-3]):([0-5]\d))$/;
+        const match = val.match(meetsRegex) 
+        if (match) {
+            // const [, days, timeRange] = match; // Extract the captured groups
+            const [,startTime, endTime] = match;
+
+            if (!before(startTime, endTime)) {
+                return 'start time must be strictly before end time';
+            }
+            return '';
+        } else {
+            return 'must contain days and start-end, e.g., MWF 12:00-13:20';
+        }
     default: return '';
   }
 };

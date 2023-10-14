@@ -18,7 +18,7 @@ const sametime = (class1, class2) => {
     return !(before(start1, start2) && before(end1, start2) || before(start2, start1) && before(end2, start1))
 }
 
-const before = (time1, time2) => {
+export const before = (time1, time2) => {
     const [h1, s1] = time1.split(":");
     const [h2, s2] = time2.split(":");
     return h1 < h2 ? true : (h1 === h2 && s1 < s2);
