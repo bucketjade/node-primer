@@ -19,6 +19,9 @@ const sametime = (class1, class2) => {
 }
 
 export const before = (time1, time2) => {
+    if (typeof time1 === 'undefined' || typeof time2 === 'undefined') {
+        return true
+    }
     const [h1, s1] = time1.split(":");
     const [h2, s2] = time2.split(":");
     return h1 < h2 ? true : (h1 === h2 && s1 < s2);
