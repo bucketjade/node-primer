@@ -39,7 +39,7 @@ const TermSelector = ({termSelection, setTerm}) => (
 // note: this "Term" state variable has to be created in TermPage not TermSelector,
 // so that it can be shared between components.
 
-const TermPage = ({schedule}) => {
+const TermPage = ({schedule, profile}) => {
     const [termSelection, setTerm] = useState(() => Object.keys(terms)[0]); //start on Fall
     const [selectedCards, setClasses] = useState([]);
     const [open, setOpen] = useState(false);
@@ -69,7 +69,12 @@ const TermPage = ({schedule}) => {
             <Modal open={open} close={closeModal}>
                 <Cart selectedCards={selectedCards} courses={schedule.courses}/>
             </Modal>
-            <CourseList courses={schedule.courses} term={termSelection} selectedCards={selectedCards} toggleSelectedCards={toggleSelectedCards}/>
+            <CourseList courses={schedule.courses} 
+                        term={termSelection} 
+                        selectedCards={selectedCards} 
+                        toggleSelectedCards={toggleSelectedCards}
+                        profile={profile}
+            />
         </div>
     );
 }
