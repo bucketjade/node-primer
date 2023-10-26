@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Course = ({id, course, selectedCards, toggleSelectedCards, conflicting, profile}) => {
     // const [user] = useAuthState();
-    console.log(profile);
-    return (<div className="course card m-1 p-2" onClick={() => {if (!conflicting || selectedCards.includes(id)) {toggleSelectedCards(id)}}}>
+    return (<div className="course card m-1 p-2" data-cy="course" onClick={() => {if (!conflicting || selectedCards.includes(id)) {toggleSelectedCards(id)}}}>
         {/* Note: we assume you will never get to a state where two conflicting classes are already selected */}
         <div className={`${selectedCards.includes(id) ? 'course-selected' : ''} ${conflicting ? 'course-conflict' : ''}`}>
             

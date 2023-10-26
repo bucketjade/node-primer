@@ -12,7 +12,6 @@ const Dispatcher = ({schedule}) => {
 
     if (profileError) return <h1>Error loading profile: {`${profileError}`}</h1>;
     if (profileLoading) return <h1>Loading user profile</h1>;
-    console.log(profile)
     if (!profile) return <h1>No profile data</h1>;
 
   return <BrowserRouter>
