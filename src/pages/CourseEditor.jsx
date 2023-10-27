@@ -58,7 +58,7 @@ const CourseEditor = ({id}) => {
 
   return (
     <form onSubmit={submit} noValidate className={state.errors ? 'was-validated' : null}>
-        <h4>Edit Course {id}</h4>
+        <h4 data-cy="page-title">Edit Course {id}</h4>
         <br></br>
         <InputField name="title" text="Course Title" state={state} change={change} />
         <InputField name="meets" text="Meeting Times" state={state} change={change} />

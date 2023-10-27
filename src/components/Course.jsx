@@ -10,7 +10,7 @@ const Course = ({id, course, selectedCards, toggleSelectedCards, conflicting, pr
             
             {profile?.isAdmin
             ? <Link to={`${id}/edit`} className={"position-absolute top-0 end-0"} >
-                    <button className="btn">
+                    <button className="btn" data-cy={`edit${id}`}>
                     <i className="bi bi-pencil-square text-info"></i>
                     </button> 
                 </Link>

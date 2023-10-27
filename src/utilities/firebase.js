@@ -11,7 +11,7 @@ import { getAuth, connectAuthEmulator, GoogleAuthProvider, onAuthStateChanged, s
 const firebaseConfig = {
   apiKey: "AIzaSyD_1T8hdQtbppxdX-fLCLQfqPa9T1EXY_M",
   authDomain: "node-primer.firebaseapp.com",
-  databaseURL: "https://node-primer-default-rtdb.firebaseio.com",
+  databaseURL: "https://node-primer.firebaseio.com",
   projectId: "node-primer",
   storageBucket: "node-primer.appspot.com",
   messagingSenderId: "665743648563",
@@ -23,8 +23,17 @@ const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
 const auth = getAuth(firebase);
 
+// if (process.env.REACT_APP_EMULATE) {
+//   connectAuthEmulator(auth, "http://127.0.0.1:9099");
+//   connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
-if (!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') {
+//   signInWithCredential(auth, GoogleAuthProvider.credential(
+//     '{"sub": "eifJU2mLQx89KlSCOGRpB9t8Bcja", "email": "tester314159@gmail.com", "displayName":"Test User", "email_verified": true}'
+//   ));
+// }
+
+
+if (!window.EMULATION && import.meta.env.NODE_ENV !== 'production') {
   connectAuthEmulator(auth, "http://127.0.0.1:9099");
   connectDatabaseEmulator(database, "127.0.0.1", 9000);
 
@@ -33,7 +42,7 @@ if (!windows.EMULATION && import.meta.env.NODE_ENV !== 'production') {
   ));
   
   // set flag to avoid connecting twice, e.g., because of an editor hot-reload
-  windows.EMULATION = true;
+  window.EMULATION = true;
 }
 
 // Database functions
