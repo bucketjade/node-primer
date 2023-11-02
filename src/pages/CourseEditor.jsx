@@ -52,6 +52,7 @@ const CourseEditor = ({id}) => {
   const submit = (evt) => {
     evt.preventDefault();
     if (!state.errors) {
+      console.log(state.values);
       update(state.values);
     }
   };

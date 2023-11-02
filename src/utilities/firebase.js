@@ -11,7 +11,7 @@ import { getAuth, connectAuthEmulator, GoogleAuthProvider, onAuthStateChanged, s
 const firebaseConfig = {
   apiKey: "AIzaSyD_1T8hdQtbppxdX-fLCLQfqPa9T1EXY_M",
   authDomain: "node-primer.firebaseapp.com",
-  databaseURL: "https://node-primer.firebaseio.com",
+  databaseURL: "https://node-primer-default-rtdb.firebaseio.com",
   projectId: "node-primer",
   storageBucket: "node-primer.appspot.com",
   messagingSenderId: "665743648563",
@@ -19,17 +19,17 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebase = initializeApp(firebaseConfig);
-const database = getDatabase(firebase);
+const firebase = initializeApp(firebaseConfig)
 const auth = getAuth(firebase);
+const database = getDatabase(firebase);
 
-if (!globalThis.EMULATION && import.meta.env.NODE_ENV !== 'production') {
-  connectAuthEmulator(auth, "http://127.0.0.1:9099");
-  connectDatabaseEmulator(database, "127.0.0.1", 9000);
-
-  signInWithCredential(auth, GoogleAuthProvider.credential(
-    '{"sub": "eifJU2mLQx89KlSCOGRpB9t8Bcja", "email": "tester314159@gmail.com", "displayName":"Test User", "email_verified": true}'
-  ));
+if (!globalThis.EMULATION && import.meta.env.MODE === 'development') {
+    connectAuthEmulator(auth, "http://127.0.0.1:9099");
+    connectDatabaseEmulator(database, "127.0.0.1", 9000);
+  
+    signInWithCredential(auth, GoogleAuthProvider.credential(
+      '{"sub": "eifJU2mLQx89KlSCOGRpB9t8Bcja", "email": "tester314159@gmail.com", "displayName":"Test User", "email_verified": true}'
+    ));
   
   // set flag to avoid connecting twice, e.g., because of an editor hot-reload
   globalThis.EMULATION = true;
